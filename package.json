@@ -1,0 +1,29 @@
+{
+  "name": "dnms",
+  "version": "0.0.0",
+  "description": "Final year project. Idea : Business manager and point of sale system.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielDiNardi/DNMS.git"
+  },
+  "keywords": [
+    "Management",
+    "POS",
+    "Business",
+    "Retail"
+  ],
+  "author": "Daniel Di Nardi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielDiNardi/DNMS/issues"
+  },
+  "homepage": "https://github.com/DanielDiNardi/DNMS#readme",
+  "dependencies": {
+    "sqlite3": "^5.0.2"
+  }
+}
