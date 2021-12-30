@@ -4,6 +4,10 @@ const db = new sqlite3.Database('');
 var app = express();
 const port = process.env.port || 3000;
 
+app.get('/',function(req,res) {
+  res.sendFile('test.html');
+});
+
 app.listen(port, (err) => {
     if (err) {
       return console.log("ERROR: " + err);
