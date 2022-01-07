@@ -11,14 +11,15 @@ app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
 app.use(expressLayouts);
 
+app.set("layout", "./layouts/layout")
 app.set("view engine", "ejs");
 
 app.get('',function(req, res) {
-  res.render("login");
+  res.render("login", {title: "DiNMS - Login"});
 });
 
 app.get('/registration',function(req, res) {
-  res.render("registration");
+  res.render("registration", {title: "DiNMS - Registration"});
 });
 
 app.listen(port, (err) => {

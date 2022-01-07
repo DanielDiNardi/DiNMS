@@ -1,0 +1,28 @@
+:root{
+    --background: #212121;
+    --app-title: #1C8C71;
+}
+
+@font-face {
+    font-family: Comfortaa;
+    src: url("../fonts/Comfortaa-VariableFont_wght.ttf");
+  }
+
+body{
+    background-color: var(--background);
+}
+
+.header{
+    width:fit-content;
+    height:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    align-self: center;
+}
+
+#app_title{
+    color: var(--app-title);
+    font-family: Comfortaa;
+}
