@@ -15,11 +15,7 @@ app.set("layout", "./layouts/layout")
 app.set("view engine", "ejs");
 
 app.get('',function(req, res) {
-  res.render("login", {title: "DiNMS - Login"});
-});
-
-app.get('/registration',function(req, res) {
-  res.render("registration", {title: "DiNMS - Registration"});
+  res.render("demo", {title: "DiNMS - Demo"});
 });
 
 app.listen(port, (err) => {

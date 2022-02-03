@@ -6,10 +6,18 @@
 @font-face {
     font-family: Comfortaa;
     src: url("../fonts/Comfortaa-VariableFont_wght.ttf");
-  }
+}
+
+html{
+    margin: 0;
+    height: 100%;
+}
 
 body{
+    margin-top: 0;
+    margin-bottom: 0;
     background-color: var(--background);
+    min-height: 100%;
 }
 
 .header{
@@ -25,4 +33,35 @@ body{
 #app_title{
     color: var(--app-title);
     font-family: Comfortaa;
+}
+
+.demo_title{
+    color: whitesmoke;
+    text-align: center;
+    margin-top: 0;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.pos_grid{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    position: absolute;
+    grid-template-columns: 50% 50%;
+}
+
+.grid_cell{
+    border: whitesmoke 1px dotted;
+}
+
+.menu{
+    padding-top: 5%;
+    display: grid;
+    column-gap: calc((100% / 5) / 4);
+    grid-template-columns: repeat(4, calc(100% / 5));
+    grid-template-rows: 50px;
 }
