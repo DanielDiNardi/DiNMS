@@ -14,8 +14,7 @@ html{
 }
 
 body{
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
     background-color: var(--background);
     min-height: 100%;
 }
@@ -54,14 +53,42 @@ body{
     grid-template-columns: 50% 50%;
 }
 
-.grid_cell{
-    border: whitesmoke 1px dotted;
-}
+/* .grid_cell{
+    border: gainsboro 1px dotted;
+} */
 
 .menu{
-    padding-top: 5%;
+    padding-top: 5rem;
     display: grid;
-    column-gap: calc((100% / 5) / 4);
-    grid-template-columns: repeat(4, calc(100% / 5));
-    grid-template-rows: 50px;
+    grid-template-columns: repeat(4, calc(100% / 4));
+    grid-template-rows: repeat(4, calc(100% / 4));
+    justify-items: center;
+}
+
+.sales_products{
+    width: 80%;
+}
+
+.sale{
+    display: grid;
+    grid-template-rows: 80% 20%;
+}
+
+.order_display{
+    margin-top: 5rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    background-color: gainsboro;
+    height: 80%;
+}
+
+.pay_button{
+    height: 80%;
+    width: 80%;
+    justify-self: center;
+    align-self: center;
+}
+
+.order_list{
+    list-style: none;
 }
