@@ -80,6 +80,7 @@ body{
     margin-right: 5rem;
     background-color: gainsboro;
     height: 80%;
+    overflow: auto;
 }
 
 .pay_button{

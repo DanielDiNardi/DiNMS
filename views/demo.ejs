@@ -1,18 +1,6 @@
 <h1 class="demo_title">Demo</h1>
 <div class="pos_grid">
-    <div class="menu grid_cell">
-        <button class="
-            white_button sales_products
-        " onclick="addItemToSalesOrderList(this)">Chip</button>
-        <button class="
-            white_button sales_products
-        " onclick="addItemToSalesOrderList(this)">Burger</button>
-        <button class="
-            white_button sales_products
-        " onclick="addItemToSalesOrderList(this)">Battered Sausage</button>
-        <button class="
-            white_button sales_products
-        " onclick="addItemToSalesOrderList(this)">Margherita Pizza</button>
+    <div class="menu grid_cell" id="menu">
     </div>
     
     <div class="sale grid_cell">
@@ -21,7 +9,9 @@
 
             </ul>
         </div>
-        <button class="white_button pay_button">Pay</button>
+        <button class="white_button pay_button" onclick="pay()">Pay</button>
     </div>
 </div>
-<script src="../../js/addItemToSalesOrder.js"></script>
+<script src="../js/addItemToSalesOrder.js"></script>
+<script src="../js/payment.js"></script>
+<script src="../js/loadProducts.js"></script>
