@@ -93,3 +93,19 @@ body{
 .order_list{
     list-style: none;
 }
+
+.stock_grid{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    position: absolute;
+    grid-template-columns: 100%;
+    grid-template-rows: fit-content;
+    margin-top: 5rem;
+}
+
+.stock_item{
+    justify-self: center;
+    color: whitesmoke;
+}
