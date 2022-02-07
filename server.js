@@ -24,7 +24,18 @@ app.get('',function(req, res) {
 
 // Gathers order from client.
 app.post('/post-order',function(req, res) {
-  console.log(req.body.order);
+  db.run(`insert into Sale(sale_date, payment_method) values(datetime('now'), "cash");`);
+  req.body.order.forEach(function(item){
+    const query = "select id from Sale order by id desc limit 1;";
+    db.all(query, [], function(err, rows) {
+      if (err) {
+        throw err;
+      }
+      console.log(item.id + " " + JSON.stringify(rows[0].id));
+      db.run(`insert into SaleOrder values(${JSON.stringify(rows[0].id)}, 
+        ${JSON.stringify(item.id)});`);
+    });
+  });
   return res.status(200);
 });
 
@@ -49,6 +60,3 @@ db.all(sql, [], function(err, rows) {
     res.send(rows);
   });
 });
-
-// Closes the database.
-db.close();
