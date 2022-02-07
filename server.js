@@ -17,6 +17,14 @@ app.use(express.json());
 app.set("layout", "./layouts/layout")
 app.set("view engine", "ejs");
 
+// Listening on port.
+app.listen(port, (err) => {
+  if (err) {
+    return console.log("ERROR: " + err);
+  }
+  console.log(`Listening on port ${port}`);
+});
+
 // Renders homepage for the demo.
 app.get('',function(req, res) {
   res.render("demo", {title: "DiNMS - Demo"});
@@ -83,14 +91,6 @@ app.post('/post-order',function(req, res) {
   });
 
   return res.status(200);
-});
-
-// Listening on port.
-app.listen(port, (err) => {
-    if (err) {
-      return console.log("ERROR: " + err);
-    }
-    console.log(`Listening on port ${port}`);
 });
 
 app.get('/get-products', function (req, res) {
