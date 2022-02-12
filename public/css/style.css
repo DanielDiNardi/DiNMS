@@ -1,11 +1,17 @@
 :root{
-    --background: #212121;
-    --app-title: #1C8C71;
+    --background: #19181d;
+    --ui: #1d1e2e;
+    --highlight: #1C8C71;
+    --border: #929292;
 }
 
 @font-face {
     font-family: Comfortaa;
     src: url("../fonts/Comfortaa-VariableFont_wght.ttf");
+}
+
+*{
+    font-family: Comfortaa;
 }
 
 html{
@@ -17,6 +23,7 @@ body{
     margin: 0;
     background-color: var(--background);
     min-height: 100%;
+    color: gainsboro;
 }
 
 .header{
@@ -31,11 +38,9 @@ body{
 
 #app_title{
     color: var(--app-title);
-    font-family: Comfortaa;
 }
 
 .demo_title{
-    color: whitesmoke;
     text-align: center;
     margin-top: 0;
     z-index: 10;
@@ -50,12 +55,8 @@ body{
     width: 100%;
     display: grid;
     position: absolute;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 70% 30%;
 }
-
-/* .grid_cell{
-    border: gainsboro 1px dotted;
-} */
 
 .menu{
     padding-top: 5rem;
@@ -67,31 +68,48 @@ body{
 
 .sales_products{
     width: 80%;
+    border: none;
+    color: gainsboro;
 }
 
 .sale{
-    display: grid;
-    grid-template-rows: 80% 20%;
+    
 }
 
 .order_display{
-    margin-top: 5rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    background-color: gainsboro;
-    height: 80%;
+    margin: 0;
+    background-color: var(--ui);
+    height: 100%;
     overflow: auto;
+    display: block;
+    text-align: center;
 }
 
 .pay_button{
-    height: 80%;
-    width: 80%;
-    justify-self: center;
-    align-self: center;
+    background-color: var(--highlight);
+    color: gainsboro;
+    width: 90%;
+    height: 10%;
+    border: none;
 }
 
 .order_list{
     list-style: none;
+    padding: 0;
+    display: block;
+    height: 90%;
+    text-align: left;
+}
+
+.sales_order_item{
+    border-bottom: 1px solid var(--border);
+    padding: 1em;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.price{
+    text-align: end;
 }
 
 .stock_grid{
@@ -107,5 +125,9 @@ body{
 
 .stock_item{
     justify-self: center;
-    color: whitesmoke;
+    color: var(--ui);
+}
+
+.ui_colour{
+    background-color: var(--ui);
 }
