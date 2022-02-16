@@ -7,7 +7,7 @@ getMenu("/get-products")
             req.forEach(function(product){
                 // Appends the products to the menu div.
                 menu.innerHTML += `
-                    <button class="ui_colour sales_products" onclick="addItemToSalesOrderList(this)" id="${product.id}" value="${product.price}">${product.name}</button>
+                    <button class="ui_colour sales_products" onclick="addItemToSalesOrderList(this); UpdateTotal(); Bottom()" id="${product.id}" value="${product.price}">${product.name}</button>
                 `;
             });
         }

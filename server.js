@@ -27,7 +27,7 @@ app.listen(port, (err) => {
 
 // Renders homepage for the demo.
 app.get('',function(req, res) {
-  res.render("demo", {title: "DiNMS - Demo"});
+  res.render("sales", {title: "DiNMS - Sales"});
 });
 
 app.get('/stock',function(req, res) {
@@ -36,6 +36,7 @@ app.get('/stock',function(req, res) {
 
 // Gathers order from client.
 app.post('/post-order',function(req, res) {
+  console.log(req.body);
   db.run(`insert into Sale(sale_date, payment_method) values(datetime('now'), "cash");`);
   req.body.order.forEach(function(item){
     // Get latest sale.

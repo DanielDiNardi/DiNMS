@@ -1,5 +1,8 @@
 function pay(){
-    postOrder('/post-order', { order: order_array });
+    postOrder('/post-order', {"order": order_array, "total": parseFloat(Total()).toFixed(2)});
+    order_list.innerHTML = "";
+    order_array = [];
+    total_amount_element.innerHTML = "0.00";
 }
 
 async function postOrder(url = '', data = {}) {

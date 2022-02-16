@@ -15,6 +15,7 @@ function addItemToSalesOrderList(event){
     // Adds product to order array used in the payment js file.
     order_array.push({
         "id": event.id,
-        "name": event.textContent
+        "name": event.textContent,
+        "price": parseFloat(event.value).toFixed(2)
     });
 }
