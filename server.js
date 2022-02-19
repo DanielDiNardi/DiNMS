@@ -117,3 +117,13 @@ app.get('/get-stock', function (req, res) {
   });
 });
 
+app.get('/get-category', function (req, res) {
+  let all_category_query = `select * from Category;`;
+  // Execute SQL queries.
+  db.all(all_category_query, [], function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    res.send(rows);
+  });
+});
