@@ -62,5 +62,4 @@ async function requestCategory(url = '', data = {}) {
       },
       body: JSON.stringify(data)
     });
-    return response.json();
   }
