@@ -102,7 +102,7 @@ app.post('/post-order',function(req, res) {
     });
   });
 
-  return res.status(200);
+  return res.status(200).send();
 });
 
 // Receives category id from client and generates an SQL query.

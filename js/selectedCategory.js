@@ -62,4 +62,4 @@ async function requestCategory(url = '', data = {}) {
       },
       body: JSON.stringify(data)
     });
-  }
+}
