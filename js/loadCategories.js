@@ -4,7 +4,6 @@ getMenu("/get-category")
     .then(
         function(req, res){
             req.forEach(function(category){
-                // console.log(category.name);
                 category_bar.innerHTML += `<div class="category_button" id="${category.id}" onclick="select('${category.id}')"><p>${category.name}</p></div>`;
             });
         }

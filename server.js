@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('dinms.db');
 var app = express();
 const port = process.env.PORT || 3000;
+var get_items_of_category;
 
 // Middleware
 app.use(express.static("public"));
@@ -25,11 +26,12 @@ app.listen(port, (err) => {
   console.log(`Listening on port ${port}`);
 });
 
-// Renders homepage for the demo.
+// Renders sales page.
 app.get('',function(req, res) {
   res.render("sales", {title: "DiNMS - Sales"});
 });
 
+// Renders stock page.
 app.get('/stock',function(req, res) {
   res.render("stock", {title: "DiNMS - Stock"});
 });
@@ -37,10 +39,12 @@ app.get('/stock',function(req, res) {
 // Gathers order from client.
 app.post('/post-order',function(req, res) {
   console.log(req.body);
-  db.run(`insert into Sale(sale_date, payment_method) values(datetime('now'), "cash");`);
+  db.run(`insert into Sale(sale_date, total_money, payment_method) values(datetime('now'), ${req.body.total}, "cash");`);
   req.body.order.forEach(function(item){
+
     // Get latest sale.
     const latest_sale_query = "select id from Sale order by id desc limit 1;";
+
     // Query all items in the order and assign the item id to the sale id.
     db.all(latest_sale_query, [], function(err, rows) {
       if (err) {
@@ -49,6 +53,7 @@ app.post('/post-order',function(req, res) {
       db.run(`insert into SaleOrder values(${JSON.stringify(rows[0].id)}, 
         ${JSON.stringify(item.id)});`);
     });
+
     // Find all ingredients for each item.
     const all_ingredients_for_item_query = `
       select stock_id 
@@ -60,6 +65,7 @@ app.post('/post-order',function(req, res) {
         throw err;
       }
       item.forEach(function(ingredient){
+
         // Subtract amount used from current stock balance.
         const get_amount_used_query = `
           select amount_used 
@@ -71,14 +77,19 @@ app.post('/post-order',function(req, res) {
           from Stock 
           where id = "${ingredient.stock_id}";
         `;
+
         // Get amount used for each ingredient.
         db.all(get_amount_used_query, [], function(err, amount_used){
+
           // au is short for amount used.
           var au = amount_used[0].amount_used;
+
           // Get stock used.
           db.all(get_current_stock_query, [], function(err, current_stock){
+
             // Subtraction.
             var new_current_stock = current_stock[0].current_stock - au;
+
             // Update current stock balance.
             db.run(`
               update Stock 
@@ -94,6 +105,31 @@ app.post('/post-order',function(req, res) {
   return res.status(200);
 });
 
+// Receives category id from client and generates an SQL query.
+app.post('/post-category',function(req, res) {
+  get_items_of_category = `
+    select id, name, price 
+    from ProductCategory 
+    join Product on ProductCategory.product_id = Product.id
+    where category_id = "${req.body.category_id}";
+  `;
+
+  return res.status(200).send();
+});
+
+// Sends items of category chosen.
+app.get('/get-category-items', function (req, res) {
+
+  // Execute SQL queries.
+  db.all(get_items_of_category, [], function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    return res.status(200).send(rows);
+  });
+});
+
+// Sends all products when app starts.
 app.get('/get-products', function (req, res) {
   let all_products_query = `select * from Product;`;
   // Execute SQL queries.
@@ -105,7 +141,7 @@ app.get('/get-products', function (req, res) {
   });
 });
 
-
+// Sends all stock items to the user.
 app.get('/get-stock', function (req, res) {
   let all_stock_query = `select * from Stock;`;
   // Execute SQL queries.
@@ -117,6 +153,7 @@ app.get('/get-stock', function (req, res) {
   });
 });
 
+// Sends all categories for category nav bar.
 app.get('/get-category', function (req, res) {
   let all_category_query = `select * from Category;`;
   // Execute SQL queries.
