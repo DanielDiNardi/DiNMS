@@ -23,7 +23,9 @@ function addSelectedStyle(recent_selected_category_id){
 }
 
 function removeSelectedStyle(previous_selected_category_id){
-    document.getElementById(previous_selected_category_id).classList.remove('active_category');
+    if(previous_selected_category_id){
+        document.getElementById(previous_selected_category_id).classList.remove('active_category');
+    }
 }
 
 function changeMenu(id){
