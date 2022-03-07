@@ -14,5 +14,5 @@ async function postOrder(url = '', data = {}) {
     },
     body: JSON.stringify(data)
   });
-  return response.json();
+  // return response.json();
 }
