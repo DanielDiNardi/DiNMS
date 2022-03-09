@@ -4,6 +4,7 @@
     --highlight: #1C8C71;
     --border: #929292;
     --border-opaque: #9292927e;
+    --order-item-delete: #c42a2a;
 }
 
 @font-face {
@@ -120,15 +121,45 @@ body{
     text-align: left;
 }
 
+.order_item_layout{
+    display: flex;
+    align-items: center;
+}
+
+.order_item_padding{
+    padding: 1em;
+}
+
 .sales_order_item{
     border-bottom: 1px solid var(--border);
-    padding: 1em;
     display: grid;
     grid-template-columns: 50% 50%;
 }
 
+.sales_order_item_active{
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 50% 30% 20%;
+}
+
+.showBlock{
+    display: flex !important;
+    align-items: center
+}
+
+.order_item_delete{
+    display: none;
+    text-align: center;
+    background-color: var(--order-item-delete);
+}
+
 .price{
     text-align: end;
+}
+
+.order_item_ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .stock_grid{

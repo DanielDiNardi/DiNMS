@@ -11,7 +11,5 @@ function Total(){
         total += parseFloat(item.price);
     });
 
-    console.log(total);
-
     return total;
 }
