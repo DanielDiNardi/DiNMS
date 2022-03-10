@@ -144,22 +144,27 @@ body{
 
 .showBlock{
     display: flex !important;
-    align-items: center
+    align-items: center;
 }
 
 .order_item_delete{
     display: none;
-    text-align: center;
+    justify-content: center;
     background-color: var(--order-item-delete);
 }
 
 .price{
-    text-align: end;
+    justify-content: end;
+}
+
+.order_item_title{
+    display: block !important;
 }
 
 .order_item_ellipsis{
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .stock_grid{
