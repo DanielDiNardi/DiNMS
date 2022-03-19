@@ -45,11 +45,7 @@ body{
 .demo_title{
     text-align: center;
     margin-top: 0;
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    padding-top: 10px;
 }
 
 .pos_grid{
@@ -74,8 +70,19 @@ body{
     color: gainsboro;
 }
 
-.sale{
-    
+.stock_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.9em;
+    margin: 0 0 0 1em;
+    border: none;
+}
+
+.stock_icon{
+    height: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 .order_display{
@@ -116,7 +123,7 @@ body{
     list-style: none;
     padding: 0;
     display: block;
-    height: 79%;
+    height: 72%;
     overflow: auto;
     text-align: left;
 }
@@ -168,19 +175,24 @@ body{
 }
 
 .stock_grid{
-    display: grid;
-    height: 100%;
-    width: 100%;
-    display: grid;
-    position: absolute;
-    grid-template-columns: 100%;
-    grid-template-rows: fit-content;
-    margin-top: 5rem;
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid gainsboro;
 }
 
-.stock_item{
-    justify-self: center;
-    color: var(--ui);
+.stock_grid tbody:nth-child(even){
+    background-color: var(--ui)
+}
+
+.stock_grid th{
+    font-size: large;
+    text-decoration: underline;
+    padding: 1em;
+}
+
+.stock_grid td{
+    text-align: center;
+    padding: 0.5em;
 }
 
 .ui_colour{

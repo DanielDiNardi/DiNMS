@@ -7,7 +7,11 @@ getStock("/get-stock")
                 console.log(stock_item);
                 // Appends the stock_items to the stock_list div.
                 stock_list.innerHTML += `
-                <div class="stock_item">${stock_item.name} - ${stock_item.current_stock}/${stock_item.restock_max}</div>
+                <tr>
+                    <td>${stock_item.name}</td>
+                    <td>${parseFloat(stock_item.current_stock).toFixed(2)} / ${stock_item.restock_max}</td>
+                    <td><button>Restock</button></td>
+                </tr>
                 `;
             });
         }
