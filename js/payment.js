@@ -3,6 +3,9 @@ function pay(){
   if(order_array.length){
     postOrder('/post-order', {"order": order_array, "total": parseFloat(Total()).toFixed(2)});
 
+    // Checks if stock falls below minimum amount.
+    addToRestockOrder();
+
     // Resets UI, order list and total displayed.
     order_list.innerHTML = "";
     order_array = [];
