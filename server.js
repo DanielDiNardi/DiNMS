@@ -38,69 +38,10 @@ app.get('/stock',function(req, res) {
 
 // Gathers order from client.
 app.post('/post-order',function(req, res) {
-  console.log(req.body);
-  db.run(`insert into Sale(sale_date, total_money, payment_method) values(datetime('now'), ${req.body.total}, "cash");`);
-  req.body.order.forEach(function(item){
+  
+  addToSaleTable(req.body.total);
 
-    // Get latest sale.
-    const latest_sale_query = "select id from Sale order by id desc limit 1;";
-
-    // Query all items in the order and assign the item id to the sale id.
-    db.all(latest_sale_query, [], function(err, rows) {
-      if (err) {
-        throw err;
-      }
-      db.run(`insert into SaleOrder values(${JSON.stringify(rows[0].id)}, 
-        ${JSON.stringify(item.id)});`);
-    });
-
-    // Find all ingredients for each item.
-    const all_ingredients_for_item_query = `
-      select stock_id 
-      from Ingredient 
-      where product_id = ${JSON.stringify(item.id)};
-    `;
-    db.all(all_ingredients_for_item_query, [], function(err, item){
-      if(err){
-        throw err;
-      }
-      item.forEach(function(ingredient){
-
-        // Subtract amount used from current stock balance.
-        const get_amount_used_query = `
-          select amount_used 
-          from Ingredient 
-          where stock_id = "${ingredient.stock_id}";
-        `;
-        const get_current_stock_query = `
-          select current_stock 
-          from Stock 
-          where id = "${ingredient.stock_id}";
-        `;
-
-        // Get amount used for each ingredient.
-        db.all(get_amount_used_query, [], function(err, amount_used){
-
-          // au is short for amount used.
-          var au = amount_used[0].amount_used;
-
-          // Get stock used.
-          db.all(get_current_stock_query, [], function(err, current_stock){
-
-            // Subtraction.
-            var new_current_stock = current_stock[0].current_stock - au;
-
-            // Update current stock balance.
-            db.run(`
-              update Stock 
-              set current_stock = "${new_current_stock}"
-              where id = "${ingredient.stock_id}";
-            `);
-          });
-        });
-      });
-    });
-  });
+  organiseSaleItems(req.body.order);
 
   return res.status(200).send();
 });
@@ -164,3 +105,96 @@ app.get('/get-category', function (req, res) {
     res.send(rows);
   });
 });
+
+function addToSaleTable(total){
+
+  db.run(`insert into Sale(sale_date, total_money, payment_method) values(datetime('now'), ${total}, "cash");`);
+}
+
+function assignSaleItemToSale(id){
+
+  // Get latest sale.
+  const latest_sale_query = "select id from Sale order by id desc limit 1;";
+
+  // Query all items in the order and assign the item id to the sale id.
+  db.all(latest_sale_query, [], function(err, rows) {
+    if (err) {
+      throw err;
+    }
+    db.run(`insert into SaleOrder values(${JSON.stringify(rows[0].id)}, 
+      ${JSON.stringify(id)});`);
+  });
+}
+
+function organiseSaleItems(order){
+  order.forEach(function(item){
+
+    assignSaleItemToSale(item.id);
+
+    findIngredients(item.id);
+  });
+}
+
+function findIngredients(id){
+  
+  console.log(typeof id);
+  // Find all ingredients for each item.
+  const all_ingredients_for_item_query = `
+    select stock_id 
+    from Ingredient 
+    where product_id = '${id}';
+  `;
+
+  db.all(all_ingredients_for_item_query, [], function(err, item){
+    if(err){
+      throw err;
+    }
+    item.forEach(function(ingredient){
+
+      calculateStock(ingredient.stock_id);
+    });
+  });
+}
+
+function calculateStock(id){
+  
+  // Subtract amount used from current stock balance.
+  const get_amount_used_query = `
+    select amount_used 
+    from Ingredient 
+    where stock_id = "${id}";
+  `;
+  const get_current_stock_query = `
+    select current_stock 
+    from Stock 
+    where id = "${id}";
+  `;
+
+  // Get amount used for each ingredient.
+  db.all(get_amount_used_query, [], function(err, amount_used){
+
+    // au is short for amount used.
+    var au = amount_used[0].amount_used;
+
+    // Get stock used.
+    db.all(get_current_stock_query, [], function(err, current_stock){
+
+      // Subtraction.
+      var new_current_stock = current_stock[0].current_stock - au;
+
+      updateStock(new_current_stock, id);      
+    });
+  });
+}
+
+function updateStock(curr, id){
+
+  console.log(curr);
+
+  // Update current stock balance.
+  db.run(`
+    update Stock 
+    set current_stock = ${curr}
+    where id = "${id}";
+  `);
+}
