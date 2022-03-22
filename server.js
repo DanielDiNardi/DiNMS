@@ -6,6 +6,8 @@ var app = express();
 const port = process.env.PORT || 3000;
 var get_items_of_category;
 
+var order_list = [];
+
 // Middleware
 app.use(express.static("public"));
 app.use("/css", express.static(__dirname + "public/css"));
@@ -137,7 +139,6 @@ function organiseSaleItems(order){
 
 function findIngredients(id){
   
-  console.log(typeof id);
   // Find all ingredients for each item.
   const all_ingredients_for_item_query = `
     select stock_id 
@@ -157,6 +158,7 @@ function findIngredients(id){
 }
 
 function calculateStock(id){
+
   
   // Subtract amount used from current stock balance.
   const get_amount_used_query = `
@@ -179,12 +181,40 @@ function calculateStock(id){
     // Get stock used.
     db.all(get_current_stock_query, [], function(err, current_stock){
 
-      // Subtraction.
-      var new_current_stock = current_stock[0].current_stock - au;
 
-      updateStock(new_current_stock, id);      
+      order_list.push(countItemsInOrder(id, order_list));
+
+      // console.log(order_list);
+
+      // Subtraction.
+      // var new_current_stock = current_stock[0].current_stock - au;
+
+      // updateStock(new_current_stock, id);      
     });
   });
+}
+
+function countItemsInOrder(id, order_list) {
+
+  // console.log(order_list.indexOf(id) == -1);
+
+  if(order_list.map(function(item){console.log(item.id);}).indexOf(id) == -1){
+    return {
+      "amount": 1,
+      "id": id
+    };
+  }
+  // else{
+  //   order_list.forEach(function(item){
+
+  //     if(item.id == id){
+  //       item.amount++;
+  //     }
+  //   });
+  // }
+
+  // console.log(order_list);
+  // return order_list;
 }
 
 function updateStock(curr, id){
