@@ -6,8 +6,6 @@ var app = express();
 const port = process.env.PORT || 3000;
 var get_items_of_category;
 
-var order_list = [];
-
 // Middleware
 app.use(express.static("public"));
 app.use("/css", express.static(__dirname + "public/css"));
@@ -113,7 +111,9 @@ function addToSaleTable(total){
   db.run(`insert into Sale(sale_date, total_money, payment_method) values(datetime('now'), ${total}, "cash");`);
 }
 
-function assignSaleItemToSale(id){
+function assignSaleItemToSale(id, amount){
+
+  console.log(id);
 
   // Get latest sale.
   const latest_sale_query = "select id from Sale order by id desc limit 1;";
@@ -124,6 +124,7 @@ function assignSaleItemToSale(id){
       throw err;
     }
     db.run(`insert into SaleOrder values(${JSON.stringify(rows[0].id)}, 
+      ${JSON.stringify(amount)},
       ${JSON.stringify(id)});`);
   });
 }
@@ -131,13 +132,13 @@ function assignSaleItemToSale(id){
 function organiseSaleItems(order){
   order.forEach(function(item){
 
-    assignSaleItemToSale(item.id);
+    assignSaleItemToSale(item.id, item.amount);
 
-    findIngredients(item.id);
+    findIngredients(item.id, item.amount);
   });
 }
 
-function findIngredients(id){
+function findIngredients(id, amount){
   
   // Find all ingredients for each item.
   const all_ingredients_for_item_query = `
@@ -152,12 +153,12 @@ function findIngredients(id){
     }
     item.forEach(function(ingredient){
 
-      calculateStock(ingredient.stock_id);
+      calculateStock(ingredient.stock_id, amount);
     });
   });
 }
 
-function calculateStock(id){
+function calculateStock(id, amount){
 
   
   // Subtract amount used from current stock balance.
@@ -176,45 +177,17 @@ function calculateStock(id){
   db.all(get_amount_used_query, [], function(err, amount_used){
 
     // au is short for amount used.
-    var au = amount_used[0].amount_used;
+    var au = amount_used[0].amount_used * amount;
 
     // Get stock used.
     db.all(get_current_stock_query, [], function(err, current_stock){
 
-
-      order_list.push(countItemsInOrder(id, order_list));
-
-      // console.log(order_list);
-
       // Subtraction.
-      // var new_current_stock = current_stock[0].current_stock - au;
+      var new_current_stock = current_stock[0].current_stock - au;
 
-      // updateStock(new_current_stock, id);      
+      updateStock(new_current_stock, id);      
     });
   });
-}
-
-function countItemsInOrder(id, order_list) {
-
-  // console.log(order_list.indexOf(id) == -1);
-
-  if(order_list.map(function(item){console.log(item.id);}).indexOf(id) == -1){
-    return {
-      "amount": 1,
-      "id": id
-    };
-  }
-  // else{
-  //   order_list.forEach(function(item){
-
-  //     if(item.id == id){
-  //       item.amount++;
-  //     }
-  //   });
-  // }
-
-  // console.log(order_list);
-  // return order_list;
 }
 
 function updateStock(curr, id){

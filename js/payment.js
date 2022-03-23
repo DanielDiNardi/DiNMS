@@ -1,7 +1,10 @@
 // Executes a post request to the server with the order list and order total if the order is not empty.
 function pay(){
+
+  var order = order_array;
+
   if(order_array.length){
-    postOrder('/post-order', {"order": order_array, "total": parseFloat(Total()).toFixed(2)});
+    postOrder('/post-order', {"order": organiseSaleItems(order), "total": parseFloat(Total()).toFixed(2)});
 
     // Checks if stock falls below minimum amount.
     addToRestockOrder();

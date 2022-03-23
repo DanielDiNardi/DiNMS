@@ -47,6 +47,7 @@ create table Ingredient(
 
 create table SaleOrder(
     sale_id integer,
+    amount integer,
     product_id varchar,
     foreign key (sale_id) references sale(id),
     foreign key (product_id) references product(id)
