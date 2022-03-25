@@ -1,9 +1,20 @@
-<h1 class="demo_title">Stock</h1>
-<table class="stock_grid" id="stock_list">
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Restock</th>
-        </tr>
-</table>
+<div class="stock_structure">
+    <h1 class="demo_title">Stock</h1>
+    <table class="stock_grid" id="stock_list">
+            <tr>
+                <th>Name</th>
+                <th>Minimum Threshold</th>
+                <th>Current Amount</th>
+                <th>Restock Amount</th>
+                <th>Unit of Measurement</th>
+                <th>Restock</th>
+            </tr>
+    </table>
+    <div class="stock_order_container">
+        <div class="stock_order_display">
+
+        </div>
+        <button class="stock_order_button">Print Stock Order</button>
+    </div>
+</div>
 <script src="../js/loadStock.js"></script>

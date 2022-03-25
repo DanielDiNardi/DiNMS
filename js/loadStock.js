@@ -9,7 +9,10 @@ getStock("/get-stock")
                 stock_list.innerHTML += `
                 <tr>
                     <td>${stock_item.name}</td>
-                    <td>${parseFloat(stock_item.current_stock).toFixed(2)} / ${stock_item.restock_max}</td>
+                    <td>${stock_item.restock_min}</td>
+                    <td>${parseFloat(stock_item.current_stock).toFixed(2)}</td>
+                    <td>${stock_item.restock_max}</td>
+                    <td>${stock_item.unit}</td>
                     <td><button>Restock</button></td>
                 </tr>
                 `;
