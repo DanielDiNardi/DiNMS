@@ -2,19 +2,32 @@
     <h1 class="demo_title">Stock</h1>
     <table class="stock_grid" id="stock_list">
             <tr>
-                <th>Name</th>
-                <th>Minimum Threshold</th>
-                <th>Current Amount</th>
-                <th>Restock Amount</th>
-                <th>Unit of Measurement</th>
-                <th>Restock</th>
+                <td class="table_header">
+                    <table>
+                        <th>Name</th>
+                        <th>Minimum Threshold</th>
+                        <th>Current Amount</th>
+                        <th>Restock Amount</th>
+                        <th>Unit of Measurement</th>
+                        <th>Restock</th>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="stock_content">
+                        <table id="inner_table"></table>
+                    </div>
+                </td>
             </tr>
     </table>
     <div class="stock_order_container">
         <div class="stock_order_display">
-
+            
         </div>
-        <button class="stock_order_button">Print Stock Order</button>
+        <button class="stock_order_button" onclick="printStockOrder()">Print Stock Order</button>
     </div>
 </div>
 <script src="../js/loadStock.js"></script>
+<script src="../js/loadStockOrder.js"></script>
+<script src="../js/printStockOrder.js"></script>

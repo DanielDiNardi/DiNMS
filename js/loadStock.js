@@ -1,12 +1,11 @@
-const stock_list = document.getElementById("stock_list");
+const inner_table = document.getElementById("inner_table");
 
 getStock("/get-stock")
     .then(
         function(req, res){
             req.forEach(function(stock_item){
-                console.log(stock_item);
                 // Appends the stock_items to the stock_list div.
-                stock_list.innerHTML += `
+                inner_table.innerHTML += `
                 <tr>
                     <td>${stock_item.name}</td>
                     <td>${stock_item.restock_min}</td>

@@ -193,7 +193,11 @@ body{
     background-color: var(--ui);
     height: 90%;
     width: 40%;
-    border: var(--highlight) 2px solid
+    border: var(--highlight) 2px solid;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 30%
 }
 
 .stock_order_button{
@@ -208,6 +212,19 @@ body{
     width: 60%;
     margin: 0 auto;
     border: 1px solid gainsboro;
+}
+
+#inner_table{
+    width: 100%;
+}
+
+#stock_content{
+    height: 15em;
+    overflow-y: auto;
+}
+
+.table_header{
+    height: 10px;
 }
 
 .stock_grid tbody:nth-child(even){
