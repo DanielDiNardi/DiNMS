@@ -197,7 +197,11 @@ body{
     overflow-y: auto;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 30%
+}
+
+.stock_order_item{
+    text-align: center;
+    align-self: center;
 }
 
 .stock_order_button{
