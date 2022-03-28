@@ -6,7 +6,7 @@ function addStockOrderToDisplay(){
     .then(
         function(req, res){
             req.forEach(function(stock_item){
-                localStorage.getItem("RestockOrder").split(", ").forEach(function(id){
+                localStorage.getItem("RestockOrder").split(",").forEach(function(id){
 
                     if(stock_item.id === id){
 
