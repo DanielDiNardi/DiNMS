@@ -9,7 +9,6 @@ function addToRestockOrder(){
                 if(stock_item.current_stock < stock_item.restock_min && localStorage.getItem("RestockOrder").split(",").indexOf(stock_item.id) == -1){
                     restock_array.push(stock_item.id);
                     localStorage.setItem("RestockOrder", restock_array.toString());
-                    console.log(localStorage.getItem("RestockOrder"));
                 }
             });
         }
