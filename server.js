@@ -113,8 +113,6 @@ function addToSaleTable(total){
 
 function assignSaleItemToSale(id, amount){
 
-  console.log(id);
-
   // Get latest sale.
   const latest_sale_query = "select id from Sale order by id desc limit 1;";
 
@@ -191,8 +189,6 @@ function calculateStock(id, amount){
 }
 
 function updateStock(curr, id){
-
-  console.log(curr);
 
   // Update current stock balance.
   db.run(`

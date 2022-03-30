@@ -12,14 +12,14 @@ function addStockOrderToDisplay(){
 
                         rows.push([
                             stock_item.name, 
-                            parseFloat(parseFloat(stock_item.restock_max).toFixed(2) - parseFloat(stock_item.current_stock).toFixed(2)).toFixed(2),
+                            Math.round(parseFloat(parseFloat(stock_item.restock_max).toFixed(2) - parseFloat(stock_item.current_stock).toFixed(2)).toFixed(2)),
                             stock_item.unit
                         ]);
                         
                         document.getElementsByClassName("stock_order_display")[0].innerHTML += `
                             <div class="stock_order_item">
                             ${stock_item.name} 
-                            ${parseFloat(parseFloat(stock_item.restock_max).toFixed(2) - parseFloat(stock_item.current_stock).toFixed(2)).toFixed(2)} 
+                            ${Math.round(parseFloat(parseFloat(stock_item.restock_max).toFixed(2) - parseFloat(stock_item.current_stock).toFixed(2)))}
                             ${stock_item.unit}
                             </div>
                         `;
