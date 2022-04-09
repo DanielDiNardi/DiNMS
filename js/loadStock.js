@@ -12,7 +12,6 @@ getStock("/get-stock")
                     <td>${Math.round(parseFloat(stock_item.current_stock))}</td>
                     <td>${stock_item.restock_max}</td>
                     <td>${stock_item.unit}</td>
-                    <td><button>Restock</button></td>
                 </tr>
                 `;
             });

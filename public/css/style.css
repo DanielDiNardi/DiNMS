@@ -218,6 +218,11 @@ body{
 
 #inner_table{
     width: 100%;
+    table-layout: fixed;
+}
+
+#tbhdr{
+    table-layout: fixed;
 }
 
 #stock_content{
